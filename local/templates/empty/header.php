@@ -3,21 +3,6 @@ if(!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
 	die();
 use Bitrix\Main\Page\Asset;
 ?>
-<!DOCTYPE html>
-<html>
-	<head>
-<!--        --><?php
-//        Assets::getInstance()->addCss('local/empty/assets/css');
-//        Assets::getInstance()->addJs('local/empty/assets/js');
-//        ?>
-
-		<title><?$APPLICATION->ShowTitle();?></title>
-		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" /> 	
-	</head>
-	<body>
-		<div id="panel">
-			<?$APPLICATION->ShowPanel();?>
-		</div>
 
 
         <!DOCTYPE html>
@@ -34,7 +19,7 @@ use Bitrix\Main\Page\Asset;
             <title><?$APPLICATION->ShowTitle();?></title>
 
             <!-- Favicon  -->
-            <link rel="icon" href="img/core-img/favicon.ico">
+            <link rel="icon" href="<?= SITE_TEMPLATE_PATH ?>/assets/img/core-img/favicon.ico">
 
             <!-- Core Style CSS -->
 
@@ -55,6 +40,7 @@ use Bitrix\Main\Page\Asset;
         </head>
 
         <body>
+        <? $APPLICATION->ShowPanel();?>
         <!-- Header Area Start -->
         <header class="header-area">
             <div class="top-header">
@@ -194,82 +180,105 @@ use Bitrix\Main\Page\Asset;
                     </div>
                 </div>
             </div>
-            <!-- Bottom Header Area -->
-            <div class="bottom-header">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center">
-                        <div class="col-12">
-                            <div class="main-menu">
-                                <nav class="navbar navbar-expand-lg">
-                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#gazetteMenu" aria-controls="gazetteMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
-                                    <div class="collapse navbar-collapse" id="gazetteMenu">
-                                        <ul class="navbar-nav mr-auto">
-                                            <li class="nav-item active">
-                                                <a class="nav-link" href="#">Today <span class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                    <a class="dropdown-item" href="index.html">Home</a>
-                                                    <a class="dropdown-item" href="catagory.html">Catagory</a>
-                                                    <a class="dropdown-item" href="single-post.html">Single Post</a>
-                                                    <a class="dropdown-item" href="about-us.html">About Us</a>
-                                                    <a class="dropdown-item" href="contact.html">Contact</a>
-                                                </div>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Politics</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Lifestyle</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Travel</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Health</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Entertainment</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">sport</a>
-                                            </li>
-                                        </ul>
-                                        <!-- Search Form -->
-                                        <div class="header-search-form mr-auto">
-                                            <form action="#">
-                                                <input type="search" placeholder="Input your keyword then press enter..." id="search" name="search">
-                                                <input class="d-none" type="submit" value="submit">
-                                            </form>
-                                        </div>
-                                        <!-- Search btn -->
-                                        <div id="searchbtn">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+             <!--Bottom Header Area-->
+            <?$APPLICATION->IncludeComponent(
+	"bitrix:menu", 
+	".default", 
+	array(
+		"ALLOW_MULTI_SELECT" => "Y",
+		"CHILD_MENU_TYPE" => "top",
+		"DELAY" => "N",
+		"MAX_LEVEL" => "1",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"MENU_CACHE_TIME" => "3600",
+		"MENU_CACHE_TYPE" => "A",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"ROOT_MENU_TYPE" => "top",
+		"USE_EXT" => "N",
+		"COMPONENT_TEMPLATE" => ".default"
+	),
+	false
+);?><br>
+
+<!--            <div class="bottom-header">-->
+<!--                <div class="container h-100">-->
+<!--                    <div class="row h-100 align-items-center">-->
+<!--                        <div class="col-12">-->
+<!--                            <div class="main-menu">-->
+<!--                                <nav class="navbar navbar-expand-lg">-->
+<!--                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#gazetteMenu" aria-controls="gazetteMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>-->
+<!--                                    <div class="collapse navbar-collapse" id="gazetteMenu">-->
+<!--                                        <ul class="navbar-nav mr-auto">-->
+<!--                                            <li class="nav-item active">-->
+<!--                                                <a class="nav-link" href="#">Today <span class="sr-only">(current)</span></a>-->
+<!--                                            </li>-->
+<!--                                            <li class="nav-item dropdown">-->
+<!--                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>-->
+<!--                                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                                                    <a class="dropdown-item" href="index.html">Home</a>-->
+<!--                                                    <a class="dropdown-item" href="catagory.html">Catagory</a>-->
+<!--                                                    <a class="dropdown-item" href="single-post.html">Single Post</a>-->
+<!--                                                    <a class="dropdown-item" href="about-us.html">About Us</a>-->
+<!--                                                    <a class="dropdown-item" href="contact.html">Contact</a>-->
+<!--                                                </div>-->
+<!--                                            </li>-->
+<!--                                            <li class="nav-item">-->
+<!--                                                <a class="nav-link" href="#">Politics</a>-->
+<!--                                            </li>-->
+<!--                                            <li class="nav-item">-->
+<!--                                                <a class="nav-link" href="#">Lifestyle</a>-->
+<!--                                            </li>-->
+<!--                                            <li class="nav-item">-->
+<!--                                                <a class="nav-link" href="#">Travel</a>-->
+<!--                                            </li>-->
+<!--                                            <li class="nav-item">-->
+<!--                                                <a class="nav-link" href="#">Health</a>-->
+<!--                                            </li>-->
+<!--                                            <li class="nav-item">-->
+<!--                                                <a class="nav-link" href="#">Entertainment</a>-->
+<!--                                            </li>-->
+<!--                                            <li class="nav-item">-->
+<!--                                                <a class="nav-link" href="#">sport</a>-->
+<!--                                            </li>-->
+<!--                                            <li class="nav-item">-->
+<!--                                                <a class="nav-link" href="index.php">news</a>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
+<!--                                         Search Form -->
+<!--                                        <div class="header-search-form mr-auto">-->
+<!--                                            <form action="#">-->
+<!--                                                <input type="search" placeholder="Input your keyword then press enter..." id="search" name="search">-->
+<!--                                                <input class="d-none" type="submit" value="submit">-->
+<!--                                            </form>-->
+<!--                                        </div>-->
+<!--                                        Search btn -->
+<!--                                        <div id="searchbtn">-->
+<!--                                            <i class="fa fa-search" aria-hidden="true"></i>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </nav>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </header>
         <!-- Header Area End -->
 
         <!-- Breadcumb Area Start -->
-        <div class="breadcumb-area section_padding_50">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="breacumb-content d-flex align-items-center justify-content-between">
-                            <h3 class="font-pt mb-0">About Us</h3>
-                            <p class="editorial-post-date text-dark mb-0">28 November 2017</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="breadcumb-area section_padding_50">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="breacumb-content d-flex align-items-center justify-content-between">-->
+<!--                            <h3 class="font-pt mb-0">About Us</h3>-->
+<!--                            <p class="editorial-post-date text-dark mb-0">28 November 2017</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <!-- Breadcumb Area End -->
 	
 						
